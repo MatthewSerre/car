@@ -37,21 +37,22 @@ else
 endif
 
 .DEFAULT_GOAL := help
-.PHONY: greet blog calculator car help
-project := greet calculator blog car
+.PHONY: authentication information help
+project := authentication information
 
 all: $(project) ## Generate Pbs and build
 
-greet: $@ ## Generate Pbs and build for greet
-calculator: $@ ## Generate Pbs and build for calculator
-blog: $@ ## Generate Pbs and build for blog
-car: $@ ## Generate Pbs and build for car
+authentication: $@ ## Generate Pbs and build for authentication
+client: $@ ## Generate build for client
+information: $@ ## Generate Pbs and build for information
 
 $(project):
 	@${CHECK_DIR_CMD}
 	protoc -I$@/${PROTO_DIR} --go_opt=module=${PACKAGE} --go_out=. --go-grpc_opt=module=${PACKAGE} --go-grpc_out=. $@/${PROTO_DIR}/*.proto
-	go build -o ${BIN_DIR}/$@/${SERVER_BIN} ./$@/${SERVER_DIR}
-	go build -o ${BIN_DIR}/$@/${CLIENT_BIN} ./$@/${CLIENT_DIR}
+	go build -o ${BIN_DIR}/$@ ./$@
+
+client:
+	go build -o bin ./client
 
 test: all ## Launch tests
 	go test ./...
