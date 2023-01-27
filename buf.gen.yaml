@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  # Golang configuration
+  - name: go
+    out: gen/go/protos
+    opt: paths=source_relative
+  - name: go-grpc
+    out: gen/go/protos
+    opt:
+      - paths=source_relative

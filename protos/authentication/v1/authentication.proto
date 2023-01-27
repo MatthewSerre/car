@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package protos.authentication.v1;
+
+option go_package = "github.com/MatthewSerre/car/authentication/v1;authentication_v1";
+
+service AuthenticationService {
+    rpc Authenticate(AuthenticationRequest) returns (AuthenticationResponse);
+}
+
+message AuthenticationRequest {
+    string username = 1;
+    string password = 2;
+    string pin = 3;
+}
+
+message AuthenticationResponse {
+    string username = 1;
+    string pin = 2;
+    string jwt_token = 3;
+    int64 jwt_expiry = 4;
+}
